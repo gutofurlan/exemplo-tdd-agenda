@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use DB;
 
 use App\Http\Requests\Contato\StoreRequest;
+use App\Http\Requests\Contato\UpdateRequest;
 
 use App\Models\Contato;
 use App\Models\Mensagem;
@@ -64,9 +65,16 @@ class ContatoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Contato $contato)
     {
-        //
+        $contato = DB::transaction(function() use ($request, $contato) {
+
+            $contato->update($request->all());
+            return $contato;
+
+        });
+
+        return response()->json(compact('contato'), 200);
     }
 
     /**
