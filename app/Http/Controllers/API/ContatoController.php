@@ -62,11 +62,12 @@ class ContatoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  UpdateRequest $request
+     * @param  Contato $contato
+     *
+     * @return JsonResponse
      */
-    public function update(UpdateRequest $request, Contato $contato)
+    public function update(UpdateRequest $request, Contato $contato) : JsonResponse
     {
         $contato = DB::transaction(function() use ($request, $contato) {
 
