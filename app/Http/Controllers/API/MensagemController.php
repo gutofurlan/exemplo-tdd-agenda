@@ -53,13 +53,19 @@ class MensagemController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove mensagem.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Mensagem  $mensagem
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Mensagem $mensagem) : JsonResponse
     {
-        //
+        DB::transaction(function() use ($mensagem) {
+
+            $mensagem->delete();
+
+        });
+
+        return response()->json([], 204);
     }
 }
