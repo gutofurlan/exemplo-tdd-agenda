@@ -14,13 +14,15 @@ use App\Models\Mensagem;
 class ContatoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Exibe todos os contatos existentes.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index() : JsonResponse
     {
-        //
+        $contatos = Contato::all();
+
+        return response()->json(compact('contatos'));
     }
 
     /**
@@ -37,12 +39,13 @@ class ContatoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Contato $contato
+     *
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(Contato $contato) : JsonResponse
     {
-        //
+        return response()->json(compact('contato'));
     }
 
     /**
