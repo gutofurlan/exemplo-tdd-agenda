@@ -6,18 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Contato extends Model
+class Mensagem extends Model
 {
     use LogsActivity;
     use SoftDeletes;
 
-    protected $table = 'contatos';
+    protected $table = 'mensagems';
 
     protected $fillable = [
-        'nome',
-        'sobrenome',
-        'email',
-        'telefone'
+        'contato_id',
+        'mensagem',
     ];
 
     protected $hidden = [
@@ -27,11 +25,9 @@ class Contato extends Model
     ];
 
     protected $casts = [
-        'id'        => 'int',
-        'nome'      => 'string',
-        'sobrenome' => 'string',
-        'email'    => 'string',
-        'telefone'  => 'string',
+        'id'            => 'int',
+        'contato_id'    => 'int',
+        'mensagem'      => 'string',
     ];
 
     protected $dates = [
@@ -43,15 +39,14 @@ class Contato extends Model
     /* ******* *** LOGS *** ******* */
     protected static $logFillable = true;
 
-    protected static $logName = 'contato';
+    protected static $logName = 'mensagem';
 
     protected static $logOnlyDirty = true;
 
     /* ******* *** Relacionamentos *** ******* */
 
-    public function mensagens()
+    public function contato()
     {
-        return $this->hasMany(Mensagem::class);
+        return $this->belongsTo(Contato::class);
     }
-
 }

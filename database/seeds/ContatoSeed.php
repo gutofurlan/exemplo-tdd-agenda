@@ -18,6 +18,8 @@ class ContatoSeed extends Seeder
             'sobrenome'     => 'Furlan',
             'email'        => 'gulyfurlan@gmail.com',
             'telefone'      => '19997797781'
+        ])->mensagens()->create([
+            'mensagem' => 'TEXTO'
         ]);
 
         Contato::create([
