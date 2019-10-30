@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use DB;
 
 use App\Http\Requests\Mensagem\StoreRequest;
+use App\Http\Requests\Mensagem\UpdateRequest;
 
 use App\Models\Mensagem;
 
@@ -39,9 +40,16 @@ class MensagemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Mensagem $mensagem)
     {
-        //
+        $mensagem = DB::transaction(function() use ($request, $mensagem) {
+
+            $mensagem->update($request->all());
+            return $mensagem;
+
+        });
+
+        return response()->json(compact('mensagem'), 200);
     }
 
     /**
