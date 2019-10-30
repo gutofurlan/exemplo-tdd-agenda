@@ -55,6 +55,7 @@ class ContatoController extends Controller
      */
     public function show(Contato $contato) : JsonResponse
     {
+        $contato->mensagens;
         return response()->json(compact('contato'));
     }
 
