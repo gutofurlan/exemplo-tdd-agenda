@@ -8,6 +8,8 @@ use Illuminate\Http\JsonResponse;
 
 use DB;
 
+use App\Http\Requests\Contato\StoreRequest;
+
 use App\Models\Contato;
 use App\Models\Mensagem;
 
@@ -26,14 +28,21 @@ class ContatoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra novo contato.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreRequest  $request
+     *
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request) : JsonResponse
     {
-        //
+        $contato = DB::transaction(function() use ($request) {
+
+            return Contato::create($request->all());
+
+        });
+
+        return response()->json(compact('contato'), 201);
     }
 
     /**
