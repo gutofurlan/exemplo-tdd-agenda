@@ -50,11 +50,11 @@ class ContatoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Exibe contato com mensagens do mesmo.
      *
      * @param  Contato $contato
      *
-     * @return JsonResponse
+     * @return ContatoResource
      */
     public function show(Contato $contato) : ContatoResource
     {
@@ -64,7 +64,7 @@ class ContatoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza contato.
      *
      * @param  UpdateRequest $request
      * @param  Contato $contato

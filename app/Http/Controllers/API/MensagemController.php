@@ -22,7 +22,7 @@ class MensagemController extends Controller
      *
      * @param  StoreRequest  $request
      *
-     * @return JsonResponse
+     * @return MensagemResource
      */
     public function store(StoreRequest $request) : MensagemResource
     {
