@@ -36,7 +36,7 @@ class UpdateTest extends TestCase
         );
 
         $response->assertJson([
-            'mensagem' => true,
+            'data' => true,
         ])->assertStatus(200)
         ->assertHeader('Content-Type', 'application/json')
         ->assertJsonFragment([

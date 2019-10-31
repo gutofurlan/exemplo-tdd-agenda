@@ -45,7 +45,7 @@ class ShowTest extends TestCase
 
         //verifica status da resposta
         $response->assertJson([
-            'contatos'       => true,
+            'data'       => true,
         ])->assertStatus(200)
         ->assertHeader('Content-Type', 'application/json');
 
@@ -68,7 +68,7 @@ class ShowTest extends TestCase
 
         //verifica status da resposta
         $response->assertJson([
-            'contato'       => true,
+            'data'       => true,
         ])->assertStatus(200)
         ->assertHeader('Content-Type', 'application/json');
     }

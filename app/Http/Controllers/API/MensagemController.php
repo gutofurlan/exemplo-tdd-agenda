@@ -11,6 +11,8 @@ use DB;
 use App\Http\Requests\Mensagem\StoreRequest;
 use App\Http\Requests\Mensagem\UpdateRequest;
 
+use App\Http\Resources\Mensagem\MensagemResource;
+
 use App\Models\Mensagem;
 
 class MensagemController extends Controller
@@ -22,7 +24,7 @@ class MensagemController extends Controller
      *
      * @return JsonResponse
      */
-    public function store(StoreRequest $request) : JsonResponse
+    public function store(StoreRequest $request) : MensagemResource
     {
         $mensagem = DB::transaction(function() use ($request) {
 
@@ -30,17 +32,18 @@ class MensagemController extends Controller
 
         });
 
-        return response()->json(compact('mensagem'), 201);
+        return new MensagemResource($mensagem);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza mensagem.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  UpdateRequest  $request
+     * @param  Mensagem $mensagem
+     *
+     * @return MensagemResource
      */
-    public function update(UpdateRequest $request, Mensagem $mensagem)
+    public function update(UpdateRequest $request, Mensagem $mensagem) : MensagemResource
     {
         $mensagem = DB::transaction(function() use ($request, $mensagem) {
 
@@ -49,7 +52,7 @@ class MensagemController extends Controller
 
         });
 
-        return response()->json(compact('mensagem'), 200);
+        return new MensagemResource($mensagem);
     }
 
     /**

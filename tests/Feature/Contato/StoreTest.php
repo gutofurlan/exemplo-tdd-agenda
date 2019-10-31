@@ -36,7 +36,7 @@ class StoreTest extends TestCase
         );
 
         $response->assertJson([
-            'contato' => true,
+            'data' => true,
         ])->assertStatus(201)
         ->assertHeader('Content-Type', 'application/json')
         ->assertJsonFragment([

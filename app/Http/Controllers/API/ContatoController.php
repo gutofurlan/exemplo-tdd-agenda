@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 
+use App\Http\Resources\Contato\ContatoResource;
+use App\Http\Resources\Contato\ContatoCollectionResource;
+
 use DB;
 
 use App\Http\Requests\Contato\StoreRequest;
@@ -19,13 +22,13 @@ class ContatoController extends Controller
     /**
      * Exibe todos os contatos existentes.
      *
-     * @return JsonResponse
+     * @return ContatoCollectionResource
      */
-    public function index() : JsonResponse
+    public function index() : ContatoCollectionResource
     {
         $contatos = Contato::all();
 
-        return response()->json(compact('contatos'));
+        return new ContatoCollectionResource($contatos);
     }
 
     /**
@@ -33,9 +36,9 @@ class ContatoController extends Controller
      *
      * @param  StoreRequest  $request
      *
-     * @return JsonResponse
+     * @return ContatoResource
      */
-    public function store(StoreRequest $request) : JsonResponse
+    public function store(StoreRequest $request) : ContatoResource
     {
         $contato = DB::transaction(function() use ($request) {
 
@@ -43,7 +46,7 @@ class ContatoController extends Controller
 
         });
 
-        return response()->json(compact('contato'), 201);
+        return new ContatoResource($contato);
     }
 
     /**
@@ -53,10 +56,11 @@ class ContatoController extends Controller
      *
      * @return JsonResponse
      */
-    public function show(Contato $contato) : JsonResponse
+    public function show(Contato $contato) : ContatoResource
     {
         $contato->mensagens;
-        return response()->json(compact('contato'));
+
+        return new ContatoResource($contato);
     }
 
     /**
@@ -65,9 +69,9 @@ class ContatoController extends Controller
      * @param  UpdateRequest $request
      * @param  Contato $contato
      *
-     * @return JsonResponse
+     * @return ContatoResource
      */
-    public function update(UpdateRequest $request, Contato $contato) : JsonResponse
+    public function update(UpdateRequest $request, Contato $contato) : ContatoResource
     {
         $contato = DB::transaction(function() use ($request, $contato) {
 
@@ -76,7 +80,7 @@ class ContatoController extends Controller
 
         });
 
-        return response()->json(compact('contato'), 200);
+        return new ContatoResource($contato);
     }
 
     /**
